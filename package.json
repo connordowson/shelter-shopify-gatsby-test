@@ -23,7 +23,7 @@
     "gatsby-plugin-sharp": "^3.10.2",
     "gatsby-plugin-styled-components": "^4.10.0",
     "gatsby-source-filesystem": "^3.10.0",
-    "gatsby-source-shopify": "^5.2.1",
+    "gatsby-source-shopify": "^6.2.0",
     "gatsby-transformer-sharp": "^3.10.0",
     "normalize.css": "^8.0.1",
     "react": "^17.0.1",
