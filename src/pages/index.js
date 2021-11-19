@@ -35,7 +35,7 @@ export const query = graphql`
   query shopifyCollection {
     shopifyCollection(title: { eq: "Christmas Cards" }) {
       id
-      products(limit: 4) {
+      products(limit: 8) {
         title
         handle
         images {
