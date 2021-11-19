@@ -42,8 +42,8 @@ const Title = styled.div`
 const Dropdown = styled.select`
   margin: 1em 0 1em 1em;
   padding: 0.5em;
-  /* border: 1px solid ${({ theme }) => theme.colors.lightBackground}; */
-  /* background: ${({ theme }) => theme.colors.lightBackground}; */
+  border: 1px solid ${({ theme }) => theme.colors.lightBackground};
+  background: ${({ theme }) => theme.colors.lightBackground};
   border-radius: 0.5em;
 `;
 
