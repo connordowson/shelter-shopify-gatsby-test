@@ -27,7 +27,6 @@ const defaultValues = {
 
 export const StoreContext = createContext(defaultValues);
 
-const isBrowser = typeof window !== `undefined`;
 const localStorageKey = `shopify_checkout_id`;
 
 export const StoreProvider = ({ children }) => {
