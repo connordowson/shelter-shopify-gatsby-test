@@ -6,7 +6,7 @@ const client = createClient({
   fetchOptions: {
     headers: {
       "X-Shopify-Storefront-Access-Token":
-        process.env.GATSBY_STOREFRONT_ACCESS_TOKEN,
+        process.env.GATSBY_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
     },
   },
 });
