@@ -1,1 +1,1 @@
-export const formatProduct = (product, source) => {};
+export const isBrowser = typeof window !== "undefined";
