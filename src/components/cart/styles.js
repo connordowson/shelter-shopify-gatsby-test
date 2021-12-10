@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Button from "../button";
 
 export const CartWrapper = styled.aside`
-<<<<<<< HEAD
   position: fixed;
   padding: 2em;
   width: 25%;
@@ -10,15 +9,6 @@ export const CartWrapper = styled.aside`
   height: calc(100vh - 112px);
   right: 0;
   top: 112px;
-=======
-  position: absolute;
-  padding: 2em;
-  width: 25%;
-  height: calc(100vh - 112px);
-  /* min-height: calc(100vh - 144px); */
-  right: 0;
-  top: 0;
->>>>>>> 6bc94625ef3a99729780700f17a7bc1ce4e4337d
   z-index: 5;
   background: ${({ theme }) => theme.colors.white};
   box-shadow: -2px 2px 5px #999;
