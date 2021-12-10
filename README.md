@@ -1,5 +1,3 @@
-# Shelter Gatsby Shopify Test
+# [Shelter Gatsby Shopify Test](https://sheltershopifygatsbytestconnor.gatsbyjs.io/)
 
 Proof of concept I've been working on during dev dev days.
-
-Can be viewed [here](https://sheltershopifygatsbytestconnor.gatsbyjs.io/).
