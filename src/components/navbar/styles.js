@@ -6,6 +6,9 @@ export const NavbarStyles = styled.nav`
   background: ${({ theme }) => theme.colors.brand};
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 
   h1 {
     text-transform: uppercase;

@@ -2,13 +2,13 @@ import styled from "styled-components";
 import Button from "../button";
 
 export const CartWrapper = styled.aside`
-  position: absolute;
+  position: fixed;
   padding: 2em;
   width: 25%;
+  /* height: calc(100%); */
   height: calc(100vh - 112px);
-  /* min-height: calc(100vh - 144px); */
   right: 0;
-  top: 0;
+  top: 112px;
   z-index: 5;
   background: ${({ theme }) => theme.colors.white};
   box-shadow: -2px 2px 5px #999;
