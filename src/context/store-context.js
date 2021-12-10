@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, createContext } from "react";
 import Client from "shopify-buy";
+import { isBrowser } from "../helpers";
 
 const client = Client.buildClient({
   domain: process.env.GATSBY_SHOPIFY_STORE_URL,
@@ -86,8 +87,11 @@ export const StoreProvider = ({ children }) => {
       .addLineItems(checkoutID, lineItemsToUpdate)
       .then((checkout) => {
         setCheckout(checkout);
-        const cartChannel = new BroadcastChannel("cart_channel");
-        cartChannel.postMessage(JSON.stringify(checkout));
+        if (isBrowser) {
+          const cartChannel = new BroadcastChannel("cart_channel");
+          cartChannel.postMessage(JSON.stringify(checkout));
+        }
+
         setLoading(false);
       });
   };
@@ -106,8 +110,10 @@ export const StoreProvider = ({ children }) => {
       .updateLineItems(checkoutID, lineItemToUpdate)
       .then((checkout) => {
         setCheckout(checkout);
-        const cartChannel = new BroadcastChannel("cart_channel");
-        cartChannel.postMessage(JSON.stringify(checkout));
+        if (isBrowser) {
+          const cartChannel = new BroadcastChannel("cart_channel");
+          cartChannel.postMessage(JSON.stringify(checkout));
+        }
         setLoading(false);
       });
   };

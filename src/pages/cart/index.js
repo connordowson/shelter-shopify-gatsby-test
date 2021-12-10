@@ -3,6 +3,7 @@ import { StoreContext } from "../../context/store-context";
 import Button from "../../components/button";
 import CartItem from "../../components/cartItem";
 import { CartWrapper, CartItemsWrapper } from "../../components/cart/styles";
+import { isBrowser } from "../../helpers";
 
 const Cart = () => {
   const {
@@ -13,10 +14,12 @@ const Cart = () => {
 
   const [checkout, setCheckout] = useState(checkoutFromContext);
 
-  const cartChannel = new BroadcastChannel("cart_channel");
-  cartChannel.onmessage = (e) => {
-    setCheckout(JSON.parse(e.data));
-  };
+  if (isBrowser) {
+    const cartChannel = new BroadcastChannel("cart_channel");
+    cartChannel.onmessage = (e) => {
+      setCheckout(JSON.parse(e.data));
+    };
+  }
 
   useEffect(() => {
     setCheckout(checkoutFromContext);
