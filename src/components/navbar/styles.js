@@ -20,10 +20,16 @@ export const NavbarStyles = styled.nav`
     justify-content: space-between;
 
     li {
-      display: inline;
-      align-self: center;
+      display: inline-flex;
+
+      svg {
+        margin-left: 0.5em;
+      }
 
       a {
+        display: inline-flex;
+        align-items: center;
+
         font-size: 1.1em;
         color: ${({ theme }) => theme.colors.white};
       }

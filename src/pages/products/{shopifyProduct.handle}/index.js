@@ -89,7 +89,7 @@ const Product = ({ data }) => {
 
     console.log(currentVariant);
 
-    if (currentVariant.image !== null) {
+    if (currentVariant.image !== undefined) {
       setCurrentImage(currentVariant.image.originalSrc);
     }
     setSelectedVariant(currentVariant);
@@ -107,7 +107,9 @@ const Product = ({ data }) => {
         <ProductInfo>
           <h2>{title}</h2>
 
-          <ProductPrice>{`£${priceRangeV2.maxVariantPrice.amount}`}</ProductPrice>
+          <ProductPrice>{`£${parseFloat(
+            priceRangeV2.maxVariantPrice.amount
+          ).toFixed(2)}`}</ProductPrice>
 
           {console.log(variants)}
           {variants.length > 1 ? (

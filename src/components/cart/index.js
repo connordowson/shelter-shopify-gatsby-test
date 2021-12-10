@@ -1,39 +1,64 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../context/store-context";
-import Button from "../../components/button";
+import { CartWrapper, CartItemsWrapper } from "./styles";
+import CartItem from "../cartItem";
+import Button from "../button";
 
 const Cart = () => {
-  const { checkout, loading } = useContext(StoreContext);
-  const isCartEmpty = checkout.lineItems.length === 0;
+  const {
+    checkout: checkoutFromContext,
+    loading,
+    isOpen,
+    toggleCart,
+  } = useContext(StoreContext);
 
-  const handleCheckout = () => {
+  const [checkout, setCheckout] = useState(checkoutFromContext);
+
+  const cartChannel = new BroadcastChannel("cart_channel");
+  cartChannel.onmessage = (e) => {
+    setCheckout(JSON.parse(e.data));
+  };
+
+  useEffect(() => {
+    setCheckout(checkoutFromContext);
+  }, [checkoutFromContext]);
+
+  const handleCheckout = (e) => {
+    e.preventDefault();
     window.open(checkout.webUrl);
   };
 
-  return (
-    <>
-      {isCartEmpty ? (
-        <p>Your cart is empty!</p>
+  return isOpen ? (
+    <CartWrapper>
+      {checkout.id ? (
+        checkout?.lineItems.length === 0 ? (
+          <h2>Your cart is empty!</h2>
+        ) : (
+          <CartItemsWrapper>
+            <h2>Your cart</h2>
+            <ul>
+              {checkout.lineItems.map((item) => (
+                <CartItem item={item} />
+              ))}
+            </ul>
+            <div>
+              <span>Total: </span>
+              <span>
+                {`£${parseFloat(checkout?.totalPriceV2?.amount).toFixed(2)}`}
+              </span>
+            </div>
+            <Button onClick={handleCheckout} disabled={loading}>
+              Checkout
+            </Button>
+          </CartItemsWrapper>
+        )
       ) : (
-        <>
-          <h2>Your cart:</h2>
-          <ul>
-            {checkout.lineItems.map((item) => (
-              <li>
-                {`${item.quantity} X ${item.title} - £${(
-                  item.variant.priceV2.amount * item.quantity
-                ).toFixed(2)}`}
-              </li>
-            ))}
-          </ul>
-          <h3> {`Total price: £${checkout?.totalPriceV2?.amount}`}</h3>
-          <Button onClick={handleCheckout}>Check out</Button>
-        </>
+        <h2>Loading cart...</h2>
       )}
 
       {/* <pre>{JSON.stringify(checkout, null, 2)}</pre> */}
-    </>
-  );
+    </CartWrapper>
+  ) : null;
 };
 
 export default Cart;
