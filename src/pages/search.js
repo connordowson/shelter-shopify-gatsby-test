@@ -1,16 +1,28 @@
-import React from "react";
-import Layout from "../components/Layout";
-import SearchProvider from "../context/search-provider";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "urql";
+import Button from "../components/button";
+import Grid from "../components/Grid";
+import ProductCard from "../components/productCard";
+import { SearchInput } from "../components/inputs";
+import { FaSearch } from "react-icons/fa";
 
 const ProductsQuery = `
-{
-	products(first: 10)
+query searchQuery($searchQuery: String){
+	products(first: 20, query: $searchQuery)
   {
     edges{
       node{
         title
-        images(first: 10){
+        handle
+        priceRange{
+          maxVariantPrice{
+            amount
+          }
+          minVariantPrice{
+            amount
+          }
+        }
+        images(first: 1){
           edges{
             node{
               originalSrc
@@ -28,39 +40,64 @@ const ProductsQuery = `
 `;
 
 const Search = () => {
+  const [pauseQuery, setPauseQuery] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const [{ fetching, data, error }] = useQuery({
     query: ProductsQuery,
+    pause: pauseQuery,
+    variables: {
+      searchQuery,
+    },
   });
 
+  useEffect(() => {
+    setPauseQuery(true);
+  }, [data]);
+
+  useEffect(() => {
+    fetching === false && setPauseQuery(true);
+  }, [fetching]);
+
   return (
-    <Layout>
-      {console.log(error)}
-      <ul>
-        <li>fetching: {fetching.toString()}</li>
+    <>
+      <h1>Search</h1>
 
-        <li>error: {error && <p>{error.message}</p>}</li>
-        <li>{`https://${process.env.GATSBY_SHOPIFY_STORE_URL}/api/graphql.json`}</li>
-      </ul>
-      {/* <pre>
-        {data &&
-          JSON.stringify(
-            data.products.edges.map((product) => product.node),
-            null,
-            2
-          )}
-      </pre> */}
+      <form
+        style={{
+          marginBottom: "2em",
+        }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          setPauseQuery(false);
+        }}
+      >
+        <SearchInput
+          type="search"
+          name="search-input"
+          id="search-input"
+          placeholder="Search"
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+          }}
+        />
+        <Button onClick={() => setPauseQuery(false)} type="submit">
+          Search
+          <FaSearch />
+        </Button>
+      </form>
 
-      {data &&
-        data.products.edges.map((product, index) => (
-          <div>
-            <h2>{product.node.title}</h2>
-            <img
-              src={product.node.images.edges[0].node.originalSrc}
-              height="200px"
-            />
-          </div>
-        ))}
-    </Layout>
+      {!fetching ? (
+        <Grid columns="repeat(5, 1fr)" gap="2em">
+          {data &&
+            data.products.edges.map(({ node: product }) => (
+              <ProductCard product={product} source="search" />
+            ))}
+        </Grid>
+      ) : (
+        <h2>Loading...</h2>
+      )}
+    </>
   );
 };
 
