@@ -41,9 +41,9 @@ const ProductCard = ({ product, source }) => {
         />
       )}
 
-      <h2>
+      <h3>
         <Link to={`/products/${handle}`}>{title}</Link>
-      </h2>
+      </h3>
       <p>{getPrice()}</p>
     </ProductCardWrapper>
   );
