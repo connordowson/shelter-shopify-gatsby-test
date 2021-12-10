@@ -28,7 +28,6 @@ const Cart = () => {
   const handleCheckout = () => {
     window.open(checkout.webUrl);
   };
-  console.log(checkout);
 
   return (
     <>

@@ -8,14 +8,11 @@ import {
   CartItemQuantity,
   ItemQuantityButton,
 } from "../cart/styles";
-import Button from "../button";
 
 const CartItem = ({ item }) => {
   const { checkout, loading, updateLineItem } = useContext(StoreContext);
 
   const { title, quantity, variant } = item;
-
-  console.log(variant.product.handle);
 
   return (
     <CartItemStyles>

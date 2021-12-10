@@ -116,7 +116,10 @@ export const StoreProvider = ({ children }) => {
       });
   };
 
-  const toggleCart = () => setIsOpen((isOpen) => !isOpen);
+  const toggleCart = () => {
+    setIsOpen((isOpen) => !isOpen);
+    console.log(isOpen);
+  };
 
   return (
     <StoreContext.Provider

@@ -10,7 +10,7 @@ const Cart = () => {
     checkout: checkoutFromContext,
     loading,
     isOpen,
-    toggleCart,
+    // toggleCart,
   } = useContext(StoreContext);
 
   const [checkout, setCheckout] = useState(checkoutFromContext);

@@ -28,21 +28,10 @@ const ProductInfo = styled.div`
   }
 `;
 
-const Title = styled.div`
-  width: fit-content;
-
-  h2 {
-    font-family: "Playfair Display";
-    font-weight: 800;
-    font-size: 4.5em;
-    margin-top: 0;
-  }
-`;
-
 const Dropdown = styled.select`
   margin: 1em 0 1em 1em;
   padding: 0.5em;
-  border: 1px solid ${({ theme }) => theme.colors.lightBackground};
+  border: 1px solid ${({ theme }) => theme.colors.lightBackgroundHover};
   background: ${({ theme }) => theme.colors.lightBackground};
   border-radius: 0.5em;
 `;
@@ -56,13 +45,6 @@ const ProductImage = styled(GatsbyImage)`
 `;
 const ProductPrice = styled.p`
   font-size: 1.2em;
-`;
-
-const CartContainer = styled.div`
-  width: 1100px;
-  margin: 0 auto;
-  margin-top: 2em;
-  padding: 2em;
 `;
 
 const Product = ({ data }) => {
@@ -87,8 +69,6 @@ const Product = ({ data }) => {
       (variant) => variant.storefrontId === selectedFormat
     );
 
-    console.log(currentVariant);
-
     if (currentVariant.image !== undefined) {
       setCurrentImage(currentVariant.image.originalSrc);
     }
@@ -111,7 +91,6 @@ const Product = ({ data }) => {
             priceRangeV2.maxVariantPrice.amount
           ).toFixed(2)}`}</ProductPrice>
 
-          {console.log(variants)}
           {variants.length > 1 ? (
             <label>
               Format:
@@ -148,9 +127,6 @@ const Product = ({ data }) => {
           <div dangerouslySetInnerHTML={{ __html: descriptionHtml }}></div>
         </ProductInfo>
       </ProductWrapper>
-      <CartContainer>
-        <Cart />
-      </CartContainer>
     </>
   );
 };
