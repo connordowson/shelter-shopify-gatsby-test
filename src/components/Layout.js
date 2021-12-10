@@ -11,7 +11,14 @@ const Layout = ({ children }) => {
       <Helmet>
         <title>Shelter Shop</title>
       </Helmet>
-      <main>{children}</main>
+      <main
+        style={{
+          position: "relative",
+          padding: "2em",
+        }}
+      >
+        {children}
+      </main>
       <GlobalStyles />
     </SearchProvider>
   );
